@@ -51,10 +51,8 @@ def load_excel(file_path=None):
             if all(value is None for value in values):
                 continue
             if isinstance(values[0], str) and values[0].strip().upper() == "TỔNG":
-                logger.info("Bỏ qua dòng tổng kết tại dòng %s", row_number)
                 continue
             if any(cell.data_type == "f" for cell in row):
-                logger.warning("Bỏ qua dòng %s vì có ô công thức", row_number)
                 continue
 
             manv = values[0]
@@ -73,7 +71,9 @@ def load_excel(file_path=None):
         if not mnv:
             raise ValueError("Không tìm thấy nhân viên hợp lệ trong bảng lương!")
 
+        print("Đọc dữ liệu Excel thành công!")
+
         return mnv, TIME(int(month), int(year)), luong_co_ban_ngay
     except Exception:
-        logger.exception("Không thể đọc dữ liệu bảng lương!",)
+        logger.error("Không thể đọc dữ liệu bảng lương!",)
         raise

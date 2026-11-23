@@ -20,13 +20,13 @@ def format_amount(amount):
 def build_style():
     font_path = Path(__file__).resolve().with_name("NotoSans.ttf")
     pdfmetrics.registerFont(TTFont("NotoSans", str(font_path)))
-    normal = ParagraphStyle("NormalVietnamese", fontName="NotoSans", fontSize=10)
+    normal = ParagraphStyle("normalstyle", fontName="NotoSans", fontSize=10)
     return (
-        ParagraphStyle("TitleVietnamese", parent=normal, fontSize=14, alignment=TA_CENTER),
+        ParagraphStyle("titlestyle", parent=normal, fontSize=14, alignment=TA_CENTER),
         normal,
-        ParagraphStyle("MonthVietnamese", parent=normal, alignment=TA_CENTER),
-        ParagraphStyle("RightVietnamese", parent=normal, alignment=TA_RIGHT),
-        ParagraphStyle("CenterVietnamese", parent=normal, alignment=TA_CENTER),
+        ParagraphStyle("monthstyle", parent=normal, alignment=TA_CENTER),
+        ParagraphStyle("rights", parent=normal, alignment=TA_RIGHT),
+        ParagraphStyle("centers", parent=normal, alignment=TA_CENTER),
     )
 
 
@@ -126,12 +126,14 @@ def main():
         try:
             build_pdf(nv, time_info, luong_co_ban_ngay, styles, output_path)
             logger.info("TẠO FILE THÀNH CÔNG: %s", f"LuongNV{manv}.pdf")
+            print(f"TẠO FILE THÀNH CÔNG: LuongNV{manv}.pdf")
 
         except Exception:
             failtime += 1
-            logger.exception("TẠO FILE THẤT BẠI: %s", {manv})
+            logger.error("TẠO FILE THẤT BẠI: %s", f"Nhân viên {manv}")
+            print(f"TẠO FILE THẤT BẠI: Nhân viên {manv}")
 
-    logger.info("Hoàn tất tạo phiếu lương: %s thành công, %s thất bại", len(mnv) - failtime, failtime)
+    logger.info("Hoàn tất tạo phiếu lương: %s thành công, %s thất bại \n", len(mnv) - failtime, failtime)
     return 1 if failtime else 0
 
 
