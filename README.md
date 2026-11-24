@@ -1,4 +1,4 @@
-# Bài tập: Tạo phiếu lương nhân viên bằng Python
+# Bài A3. Tự động tạo báo cáo lương PDF từ Excel - Nhóm Pypy
 
 ## Mô tả
 
